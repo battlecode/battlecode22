@@ -1,5 +1,0 @@
-dist/*
-.vscode/*
-build/*
-matches/*
-gcloud-key.json
