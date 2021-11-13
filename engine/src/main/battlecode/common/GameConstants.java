@@ -72,7 +72,7 @@ public class GameConstants {
     // turret vision = unit vision + ???
     // building portable mode move cooldown = ???
 
-    public static final float RICOCHET_UPGRADE_MULTIPLIER = 1.5;
+    
     public static final float BUILDING_UPGRADE_COST_MULTIPLER = 0.5;
 
 
