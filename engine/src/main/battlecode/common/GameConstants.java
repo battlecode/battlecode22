@@ -36,6 +36,7 @@ public class GameConstants {
 
     /** The bytecode penalty that is imposed each time an exception is thrown. */
     public static final int EXCEPTION_BYTECODE_PENALTY = 500;
+    
 
     ///** Maximum ID a Robot will have */
     //public static final int MAX_ROBOT_ID = 32000;   Cannot be guaranteed in Battlecode 2021.
@@ -44,7 +45,7 @@ public class GameConstants {
     // ****** COOLDOWNS ****************
     // *********************************
 
-    // NEED TO CHANGE: what is the actual cooldown value for the following values:
+    // TODO what is the actual cooldown value for the following values:
 
     public static final int BUILDING_UPGRADE_COOLDOWN = 500;
     public static final float FRESH_ROBOT_ARCHON_COOLDOWN = 10;
@@ -68,7 +69,7 @@ public class GameConstants {
     public static final float DPS_UNIT_TO_TURRET = PLACEHOLDER_LEVEL_MULTIPLIER;
     public static final float HP_UNIT_TO_TURRET = PLACEHOLDER_LEVEL_MULTIPLIER;
 
-    // NEED TO CHANGE:
+    // TODO
     // turret vision = unit vision + ???
     // building portable mode move cooldown = ???
 
@@ -88,6 +89,8 @@ public class GameConstants {
 
     public static final int LEAD_TO_GOLD_RATE = 20;
     public static final int INITIAL_LEAD = 200;
+
+    public static final float RECLAIM_COST_PERCENTAGE = 0.2;
     
 
     // Older constants below, maintaining them for now.
