@@ -73,9 +73,6 @@ public class GameConstants {
     // turret vision = unit vision + ???
     // building portable mode move cooldown = ???
 
-    public static final float RICOCHET_UPGRADE_MULTIPLIER = 1.5;
-    public static final float BUILDING_UPGRADE_COST_MULTIPLER = 0.5;
-
 
     // *********************************
     // ****** GAME MECHANICS ***********
@@ -89,9 +86,6 @@ public class GameConstants {
 
     public static final int LEAD_TO_GOLD_RATE = 20;
     public static final int INITIAL_LEAD = 200;
-
-    public static final float RECLAIM_COST_PERCENTAGE = 0.2;
-    
 
     // Older constants below, maintaining them for now.
 
