@@ -61,9 +61,11 @@ public class GameConstants {
 
     public static final float DPS_1_TO_2 = PLACEHOLDER_LEVEL_MULTIPLIER;
     public static final float HP_1_TO_2 = PLACEHOLDER_LEVEL_MULTIPLIER;
+    public static final float HPS_1_TO_2 = PLACEHOLDER_LEVEL_MULTIPLIER;
 
     public static final float DPS_2_TO_3 = PLACEHOLDER_LEVEL_MULTIPLIER;
     public static final float HP_2_TO_3 = PLACEHOLDER_LEVEL_MULTIPLIER;
+    public static final float HPS_2_TO_3 = PLACEHOLDER_LEVEL_MULTIPLIER;
 
     public static final float DPS_UNIT_TO_TURRET = PLACEHOLDER_LEVEL_MULTIPLIER;
     public static final float HP_UNIT_TO_TURRET = PLACEHOLDER_LEVEL_MULTIPLIER;

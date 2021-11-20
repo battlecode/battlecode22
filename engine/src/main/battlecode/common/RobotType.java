@@ -35,7 +35,7 @@ public enum RobotType {
      *
      * @battlecode.doc.robottype
      */
-    ARCHON          (250, CurrencyType.AU, 10, NO_COOLDOWN_CLOCK, -5, 700, PLACEHOLDER_ACTION_RADIUS, PLACEHOLDER_VISION_RADIUS, 0.2, PLACEHOLDER_BYTECODE_LIMIT, true),
+    ARCHON          (250, CurrencyType.AU, 10, NO_COOLDOWN_CLOCK, -AUTOMATIC_ARCHON_HEAL_AMOUNT, 700, PLACEHOLDER_ACTION_RADIUS, PLACEHOLDER_VISION_RADIUS, 0.2, PLACEHOLDER_BYTECODE_LIMIT, true),
     //               BCA,             BCT, AC                 MC DPS   HP                         AR                          VR  RCP                      BL       IB
     /**
      * A lead robot
@@ -51,7 +51,7 @@ public enum RobotType {
      *
      * @battlecode.doc.robottype
      */
-    BUILDER         ( 40, CurrencyType.PB,  10,       10, -10, 30, PLACEHOLDER_ACTION_RADIUS, PLACEHOLDER_VISION_RADIUS, 0, PLACEHOLDER_BYTECODE_LIMIT, false, 0),
+    BUILDER         ( 40, CurrencyType.PB,  10,       10, -AUTOMATIC_BUILDER_HEAL_AMOUNT, 30, PLACEHOLDER_ACTION_RADIUS, PLACEHOLDER_VISION_RADIUS, 0, PLACEHOLDER_BYTECODE_LIMIT, false, 0),
     //               BCA,             BCT,  AC        MC  DPS  HP                         AR                          VR RCP                         BL     IB RC
     /**
      * Alchemist's laboratory
@@ -244,6 +244,20 @@ public enum RobotType {
         // 11/13/21: https://www.w3schools.com/java/java_type_casting.asp
         return (int) (this.ricochetCount * Math.pow(GameConstants.RICOCHET_UPGRADE_MULTIPLIER, level));
         // end code
+    }
+
+    /**
+     * @param level
+     * @return the healing per turn for a robot by level.
+     */
+    public int getHealing(int level){
+        int hps = -type.DPSLv1;
+        if(level >= 2)
+            hps *= GameConstants.HPS1_TO_2;
+        if(level >= 3)
+            hps *= GameConstants.HPS_2_TO_3;
+
+        return (int) hps;
     }
 
     /**
