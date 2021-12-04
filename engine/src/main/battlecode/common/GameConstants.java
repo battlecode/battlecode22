@@ -9,6 +9,7 @@ public class GameConstants {
     /**
      * The current spec version the server compiles with.
      */
+     
     public static final String SPEC_VERSION = "1.0";
 
     // *********************************
@@ -37,55 +38,19 @@ public class GameConstants {
     /** The bytecode penalty that is imposed each time an exception is thrown. */
     public static final int EXCEPTION_BYTECODE_PENALTY = 500;
     
-
-    ///** Maximum ID a Robot will have */
-    //public static final int MAX_ROBOT_ID = 32000;   Cannot be guaranteed in Battlecode 2021.
-
     // *********************************
     // ****** COOLDOWNS ****************
     // *********************************
 
-    // TODO what is the actual cooldown value for the following values:
 
-    public static final int BUILDING_UPGRADE_COOLDOWN = 500;
-    public static final float FRESH_ROBOT_ARCHON_COOLDOWN = 10;
     // turret to portable, or portable to turret
-    public static final int BUILDING_CONVERSION_COOLDOWN = 10000;
-
-
-    // *********************************
-    // ****** LEVEL MULTIPLIERS ********
-    // *********************************
-
-
-    public static final float PLACEHOLDER_LEVEL_MULTIPLIER = 1.2;
-
-    public static final float DPS_1_TO_2 = PLACEHOLDER_LEVEL_MULTIPLIER;
-    public static final float HP_1_TO_2 = PLACEHOLDER_LEVEL_MULTIPLIER;
-
-    public static final float DPS_2_TO_3 = PLACEHOLDER_LEVEL_MULTIPLIER;
-    public static final float HP_2_TO_3 = PLACEHOLDER_LEVEL_MULTIPLIER;
-
-    public static final float DPS_UNIT_TO_TURRET = PLACEHOLDER_LEVEL_MULTIPLIER;
-    public static final float HP_UNIT_TO_TURRET = PLACEHOLDER_LEVEL_MULTIPLIER;
-
-    // TODO
-    // turret vision = unit vision + ???
-    // building portable mode move cooldown = ???
-
+    public static final int BUILDING_CONVERSION_COOLDOWN = 10;
 
     // *********************************
     // ****** GAME MECHANICS ***********
     // *********************************
 
-    public static final float PROTOTYPE_HP_PERCENTAGE = 0.1;
-    public static final float AUTOMATIC_ARCHON_HEAL_AMOUNT = 10;
-    public static final float AUTOMATIC_BUILDER_HEAL_AMOUNT = 10;
-
-    public static final float PER_ALCHEMIST_DECREASE_RATE = 0.1;
-
-    public static final int LEAD_TO_GOLD_RATE = 20;
-    public static final int INITIAL_LEAD = 200;
+    public static final float PROTOTYPE_HP_PERCENTAGE = 0.9;
 
     // Older constants below, maintaining them for now.
 
