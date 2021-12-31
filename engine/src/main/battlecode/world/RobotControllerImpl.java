@@ -441,7 +441,7 @@ public final strictfp class RobotControllerImpl implements RobotController {
                     "Location can't be attacked because it is out of range.");
         InternalRobot bot = this.gameWorld.getRobot(loc);
         if (bot == null)
-            throw new GameActionException(CANT_DO_THAT,
+            throw new GameActionException(NO_ROBOT_THERE,
                     "There is no robot to attack at the target location.");
         if (bot.getTeam() == getTeam())
             throw new GameActionException(CANT_DO_THAT,
@@ -520,7 +520,7 @@ public final strictfp class RobotControllerImpl implements RobotController {
                     "The target location is out of range.");
         InternalRobot bot = this.gameWorld.getRobot(loc);
         if (bot == null)
-            throw new GameActionException(CANT_DO_THAT,
+            throw new GameActionException(NO_ROBOT_THERE,
                     "There is no robot to repair at the target location.");
         if (!getType().canRepair(bot.getType()))
             throw new GameActionException(CANT_DO_THAT,
@@ -625,7 +625,7 @@ public final strictfp class RobotControllerImpl implements RobotController {
                     "Target location for mutation is out of range.");
         InternalRobot bot = this.gameWorld.getRobot(loc);
         if (bot == null)
-            throw new GameActionException(CANT_DO_THAT,
+            throw new GameActionException(NO_ROBOT_THERE,
                     "There is no robot to mutate at the target location.");
         if (!getType().canMutate(bot.getType()))
             throw new GameActionException(CANT_DO_THAT,
@@ -684,7 +684,7 @@ public final strictfp class RobotControllerImpl implements RobotController {
             throw new GameActionException(CANT_DO_THAT,
                     "Robot is of type " + getType() + " which cannot transmute lead to gold.");
         if (this.gameWorld.getTeamInfo().getLead(getTeam()) < getTransmutationRate())
-            throw new GameActionException(CANT_DO_THAT,
+            throw new GameActionException(NOT_ENOUGH_RESOURCE,
                     "You don't have enough lead to transmute to gold.");
     }
 
