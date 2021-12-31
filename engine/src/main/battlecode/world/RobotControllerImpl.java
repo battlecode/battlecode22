@@ -131,6 +131,14 @@ public final strictfp class RobotControllerImpl implements RobotController {
         return loc.x + loc.y * this.gameWorld.getGameMap().getWidth();
     }
 
+    private int getModifiedMovementCooldown(MapLocation loc) {
+        return (int)((1 + this.gameWorld.getRubble(loc)/10.0) * getType().movementCooldown);
+    }
+
+    private int getModifiedActionCooldown() {
+        return (int)((1 + this.gameWorld.getRubble(getLocation())/10.0) * getType().actionCooldown);
+    }
+
     // ***********************************
     // ****** GENERAL VISION METHODS *****
     // ***********************************
@@ -356,7 +364,7 @@ public final strictfp class RobotControllerImpl implements RobotController {
     public void move(Direction dir) throws GameActionException {
         assertCanMove(dir);
         MapLocation center = adjacentLocation(dir);
-        this.robot.addMovementCooldownTurns(getType().movementCooldown);
+        this.robot.addMovementCooldownTurns(getModifiedMovementCooldown(center));
         this.gameWorld.moveRobot(getLocation(), center);
         this.robot.setLocation(center);
         this.gameWorld.getMatchMaker().addMoved(getID(), getLocation());
@@ -402,7 +410,7 @@ public final strictfp class RobotControllerImpl implements RobotController {
     @Override
     public void buildRobot(RobotType type, Direction dir) throws GameActionException {
         assertCanBuildRobot(type, dir);
-        this.robot.addActionCooldownTurns(getType().actionCooldown);
+        this.robot.addActionCooldownTurns(getModifiedActionCooldown());
         Team team = getTeam();
         this.gameWorld.getTeamInfo().addLead(team, -type.buildCostLead);
         this.gameWorld.getTeamInfo().addGold(team, -type.buildCostGold);
@@ -443,7 +451,7 @@ public final strictfp class RobotControllerImpl implements RobotController {
     @Override
     public void attack(MapLocation loc) throws GameActionException {
         assertCanAttack(loc);
-        this.robot.addActionCooldownTurns(getType().actionCooldown);
+        this.robot.addActionCooldownTurns(getModifiedActionCooldown());
         InternalRobot bot = this.gameWorld.getRobot(loc);
         this.robot.attack(bot);
         this.gameWorld.getMatchMaker().addAction(getID(), Action.ATTACK, bot.getID());
@@ -474,7 +482,7 @@ public final strictfp class RobotControllerImpl implements RobotController {
     @Override
     public void envision(AnomalyType anomaly) throws GameActionException {
         assertCanEnvision(anomaly);
-        this.robot.addActionCooldownTurns(getType().actionCooldown);
+        this.robot.addActionCooldownTurns(getModifiedActionCooldown());
         switch (anomaly) {
             case ABYSS:
                 this.gameWorld.causeAbyssSage(this.robot);
@@ -524,7 +532,7 @@ public final strictfp class RobotControllerImpl implements RobotController {
     @Override
     public void repair(MapLocation loc) throws GameActionException {
         assertCanRepair(loc);
-        this.robot.addActionCooldownTurns(getType().actionCooldown);
+        this.robot.addActionCooldownTurns(getModifiedActionCooldown());
         InternalRobot bot = this.gameWorld.getRobot(loc);
         this.robot.heal(bot);
         this.gameWorld.getMatchMaker().addAction(getID(), Action.REPAIR, bot.getID());
@@ -559,7 +567,7 @@ public final strictfp class RobotControllerImpl implements RobotController {
     @Override
     public void mineLead(MapLocation loc) throws GameActionException {
         assertCanMineLead(loc);
-        this.robot.addActionCooldownTurns(getType().actionCooldown);
+        this.robot.addActionCooldownTurns(getModifiedActionCooldown());
         this.gameWorld.setLead(loc, this.gameWorld.getLead(loc) - 1);
         this.gameWorld.getTeamInfo().addLead(getTeam(), 1);
         this.gameWorld.getMatchMaker().addAction(getID(), Action.MINE_LEAD, locationToInt(loc));
@@ -590,7 +598,7 @@ public final strictfp class RobotControllerImpl implements RobotController {
     @Override
     public void mineGold(MapLocation loc) throws GameActionException {
         assertCanMineGold(loc);
-        this.robot.addActionCooldownTurns(getType().actionCooldown);
+        this.robot.addActionCooldownTurns(getModifiedActionCooldown());
         this.gameWorld.setGold(loc, this.gameWorld.getGold(loc) - 1);
         this.gameWorld.getTeamInfo().addGold(getTeam(), 1);
         this.gameWorld.getMatchMaker().addAction(getID(), Action.MINE_GOLD, locationToInt(loc));
@@ -638,7 +646,7 @@ public final strictfp class RobotControllerImpl implements RobotController {
     @Override
     public void mutate(MapLocation loc) throws GameActionException {
         assertCanMutate(loc);
-        this.robot.addActionCooldownTurns(getType().actionCooldown);
+        this.robot.addActionCooldownTurns(getModifiedActionCooldown());
         Team team = getTeam();
         InternalRobot bot = this.gameWorld.getRobot(loc);
         int leadNeeded = bot.getLeadMutateCost();
@@ -682,7 +690,7 @@ public final strictfp class RobotControllerImpl implements RobotController {
     @Override
     public void transmute() throws GameActionException {
         assertCanTransmute();
-        this.robot.addActionCooldownTurns(getType().actionCooldown);
+        this.robot.addActionCooldownTurns(getModifiedActionCooldown());
         Team team = getTeam();
         this.gameWorld.getTeamInfo().addLead(team, -getTransmutationRate());
         this.gameWorld.getTeamInfo().addGold(team, 1);
