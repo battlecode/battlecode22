@@ -1,13 +1,16 @@
 package battlecode.doc;
 
-import battlecode.common.RobotType;
-import com.sun.javadoc.Tag;
-import com.sun.tools.doclets.Taglet;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Map;
+import java.util.List;
+import java.util.Set;
+
+import com.sun.source.doctree.DocTree;
+import javax.lang.model.element.Element;
+import jdk.javadoc.doclet.Taglet;
+
+import battlecode.common.RobotType;
 
 /**
  * Taglet for annotating the individual variants of RobotType.
@@ -16,44 +19,27 @@ import java.util.Map;
 public class RobotTypeTaglet implements Taglet {
     public static final String TAG_NAME = "battlecode.doc.robottype";
 
-    public static void register(Map<String, Taglet> map) {
-        map.put(TAG_NAME, new RobotTypeTaglet());
+    @Override
+    public Set<Taglet.Location> getAllowedLocations() {
+        return Set.of(Taglet.Location.FIELD);
     }
 
+    @Override
     public String getName() {
         return TAG_NAME;
     }
 
-    public boolean inConstructor() {
-        return false;
-    }
-
-    public boolean inField() {
-        return true;
-    }
-
-    public boolean inMethod() {
-        return false;
-    }
-
-    public boolean inOverview() {
-        return false;
-    }
-
-    public boolean inPackage() {
-        return false;
-    }
-
-    public boolean inType() {
-        return false;
-    }
-
+    @Override
     public boolean isInlineTag() {
         return false;
     }
 
-    public String toString(Tag tag) {
-        throw new IllegalArgumentException("The robot tag may not be used inline.");
+    @Override
+    public String toString(List<? extends DocTree> tags, Element element) {
+        if (tags.size() != 1) {
+            throw new IllegalArgumentException("Too many @"+TAG_NAME+" tags: "+tags.size());
+        }
+        return docFor(element.getSimpleName().toString());
     }
 
     static public void append(StringBuilder builder, String label, String value) {
@@ -197,17 +183,11 @@ public class RobotTypeTaglet implements Taglet {
                 builder.append("<br />");
                 appendField(builder, rt, "bytecodeLimit");
             }
+
+            // TODO: add docs for methods
         } catch (Exception e) {
             e.printStackTrace();
         }
         return builder.toString();
-    }
-
-    public String toString(Tag[] tags) {
-        if (tags.length != 1) {
-            throw new IllegalArgumentException("Too many @"+TAG_NAME+"tags: "+tags.length);
-        }
-
-        return docFor(tags[0].holder().name());
     }
 }
