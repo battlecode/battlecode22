@@ -13,7 +13,7 @@ import battlecode.schema.Action;
  *  - tiebreak by creation time (priority to later creation)
  *  - tiebreak by robot ID (priority to lower ID)
  */
-public strictfp class InternalRobot implements Comparable<InternalRobot> {
+public class InternalRobot implements Comparable<InternalRobot> {
 
     private final RobotControllerImpl controller;
     private final GameWorld gameWorld;
