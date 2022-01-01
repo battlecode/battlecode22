@@ -67,7 +67,7 @@ public class InstrumentingMethodVisitor extends MethodNode implements Opcodes {
                                       boolean checkDisallowed,
                                       boolean debugMethodsEnabled,
                                       boolean profilerEnabled) {
-        super(ASM5, access, methodName, methodDesc, signature, exceptions);
+        super(ASM9, access, methodName, methodDesc, signature, exceptions);
         this.methodWriter = mv;
 
         this.loader = loader;

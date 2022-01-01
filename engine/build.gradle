@@ -36,8 +36,8 @@ dependencies {
     [group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'],
     [group: 'commons-cli', name: 'commons-cli', version: '1.3.1'],
     [group: 'commons-io', name: 'commons-io', version: '2.4'],
-    [group: 'org.ow2.asm', name: 'asm', version: '5.0.4'],
-    [group: 'org.ow2.asm', name: 'asm-tree', version: '5.0.4'],
+    [group: 'org.ow2.asm', name: 'asm', version: '9.1'],
+    [group: 'org.ow2.asm', name: 'asm-tree', version: '9.1'],
 
     // Flatbuffers
     [group: 'com.google.flatbuffers', name: 'flatbuffers-java', version: '1.11.0'],
