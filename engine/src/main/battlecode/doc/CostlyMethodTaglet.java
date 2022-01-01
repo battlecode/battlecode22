@@ -1,11 +1,13 @@
 package battlecode.doc;
 
-import battlecode.instrumenter.TeamClassLoaderFactory;
-import battlecode.instrumenter.bytecode.MethodCostUtil;
-import com.sun.javadoc.Tag;
-import com.sun.tools.doclets.Taglet;
+import java.util.List;
+import java.util.Set;
 
-import java.util.Map;
+import com.sun.source.doctree.DocTree;
+import javax.lang.model.element.Element;
+import jdk.javadoc.doclet.Taglet;
+
+import battlecode.instrumenter.bytecode.MethodCostUtil;
 
 /**
  * A taglet for the "battlecode.doc.costlymethod" annotation.
@@ -13,54 +15,33 @@ import java.util.Map;
  */
 @SuppressWarnings("unused")
 public class CostlyMethodTaglet implements Taglet {
-
     public static final String TAG_NAME = "battlecode.doc.costlymethod";
 
-    @SuppressWarnings("unused")
-    public static void register(Map<String, Taglet> map) {
-        map.put(TAG_NAME, new CostlyMethodTaglet());
+    @Override
+    public Set<Taglet.Location> getAllowedLocations() {
+        return Set.of(Taglet.Location.METHOD);
     }
 
+    @Override
     public String getName() {
         return TAG_NAME;
     }
 
-    public boolean inConstructor() {
-        return false;
-    }
-
-    public boolean inField() {
-        return false;
-    }
-
-    public boolean inMethod() {
-        return true;
-    }
-
-    public boolean inOverview() {
-        return false;
-    }
-
-    public boolean inPackage() {
-        return false;
-    }
-
-    public boolean inType() {
-        return false;
-    }
-
+    @Override
     public boolean isInlineTag() {
         return false;
     }
 
-    public String toString(Tag tag) {
-        final String methodName = tag.holder().name();
-        final String fileName = tag.holder().position().file().toString();
+    @Override
+    public String toString(List<? extends DocTree> tags, Element element) {
+        if (tags.size() != 1) {
+            throw new IllegalArgumentException("Too many @"+TAG_NAME+" tags: "+tags.size());
+        }
+        Element parent = element.getEnclosingElement();
+        return docFor(element.getSimpleName().toString(), parent.getSimpleName().toString());
+    }
 
-        // Note: this makes an assumption that this method is in the battlecode/ package.
-        final String className = fileName.substring(fileName.lastIndexOf("battlecode/"),
-                fileName.length() - 5); // remove .java
-
+    public String docFor(String methodName, String className) {
         final MethodCostUtil.MethodData data =
                 MethodCostUtil.getMethodData(className, methodName);
 
@@ -77,13 +58,5 @@ public class CostlyMethodTaglet implements Taglet {
         return "<dt><strong>Bytecode cost:</strong></dt><dd><code>"
                 + cost +
                 "</code></dd>";
-    }
-
-    public String toString(Tag[] tags) {
-        if (tags.length != 1) {
-            throw new IllegalArgumentException("Too many @"+TAG_NAME+"tags: "+tags.length);
-        }
-
-        return toString(tags[0]);
     }
 }

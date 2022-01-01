@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * controls the newly created robot.
  */
 @SuppressWarnings("unused")
-public strictfp interface RobotController {
+public interface RobotController {
 
     // *********************************
     // ****** GLOBAL QUERY METHODS *****

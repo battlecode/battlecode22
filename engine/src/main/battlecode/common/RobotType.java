@@ -12,46 +12,49 @@ public enum RobotType {
      * Archons are portable buildings that heal and generate robots.
      * Losing all archons means losing the game.
      *
-     * @battlecode.doc.robot     */
+     * @battlecode.doc.robottype */
     ARCHON          (  0, 250, 10, 24, 1000, -2, 20, 34, 20000),
     //               BCL  BCG  AC  MC    HP DMG  AR  VR      BL
 
     /**
-     * Alchemist's laboratory
-     * Converts lead into gold
+     * Alchemist's laboratory.
+     * Converts lead into gold.
      *
-     * @battlecode.doc.robot     */
+     * @battlecode.doc.robottype */
     LABORATORY      (800,   0, 10, 24, 100,  0,  0, 53,    5000),
     //               BCL  BCG  AC  MC   HP DMG  AR  VR      BL
 
     /**
-    * Guard turret 
-    */
+    * Watchtower building.
+    *
+    * @battlecode.doc.robottype */
     WATCHTOWER      (180,  0,  10,  24, 130,  5, 20, 34,   10000),
     //               BCL  BCG  AC   MC   HP DMG  AR  VR       BL
 
     /**
      * Can mine gold or lead at their or an adjacent location.
      *
-     * @battlecode.doc.robot     */
+     * @battlecode.doc.robottype */
     MINER           ( 50,   0,  2,  20, 40,   0, 2, 20,   7500),
     //               BCL  BCG  AC   MC  HP  DMG AR  VR       BL
     /**
      * Can build and repair buildings.
      *
-     * @battlecode.doc.robot     */
+     * @battlecode.doc.robottype */
     BUILDER         ( 40,   0,  10, 20, 30, -1,  5, 20,   7500),
     //               BCL  BCG   AC  MC  HP DMG  AR  VR      BL
-    
+
     /**
      * Ranged attacking robot.
-    */
+     *
+     * @battlecode.doc.robottype */
     SOLDIER         ( 75,   0,  10, 16,  50,  3, 13, 20,  10000),
     //               BCL   BCG  AC  MC  HP  DMG  AR  VR       BL
-    
+
     /**
      * Gold robot, causes Anomalies.
-     */
+     *
+     * @battlecode.doc.robottype */
     SAGE            ( 0,  50, 200, 25, 100, 45, 13, 20,   10000)
     //              BCL  BCG   AC  MC  HP  DMG  AR  VR        BL
     ;

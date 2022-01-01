@@ -43,7 +43,7 @@ public class InstrumentingClassVisitor extends ClassVisitor implements Opcodes {
                                      boolean checkDisallowed,
                                      boolean debugMethodsEnabled,
                                      boolean profilerEnabled) throws InstrumentationException {
-        super(Opcodes.ASM5, cv);
+        super(Opcodes.ASM9, cv);
         this.loader = loader;
         this.silenced = silenced;
         this.checkDisallowed = checkDisallowed;

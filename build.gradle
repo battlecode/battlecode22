@@ -3,7 +3,7 @@ apply plugin: 'maven-publish'
 
 import java.nio.file.*
 
-sourceCompatibility = 1.8
+sourceCompatibility = 1.17
 
 // Avoid weird configuration-time dependency bugs
 // Fun fact: this line of code single-handedly fixed an error I spent two hours debugging.
@@ -20,8 +20,8 @@ if (!project.hasProperty("maps")) {
 }
 
 if (project.hasProperty("release_version")) {
-    if (!project.property("release_version").startsWith("2021")) {
-        throw new StopExecutionException("release version must start with 2021!")
+    if (!project.property("release_version").startsWith("2022")) {
+        throw new StopExecutionException("release version must start with 2022!")
     }
 }
 
@@ -39,7 +39,7 @@ dependencies {
     scala group: 'org.scala-lang', name: 'scala-reflect', version: '2.11.7'
 }
 
-def serverJar = new File(project(":engine").libsDir, "engine.jar")
+def serverJar = new File(project(":engine").libsDirectory.getAsFile().get(), "engine.jar")
 
 task buildMap(type: JavaExec, dependsOn: [':engine:build']) {
     main = 'battlecode.world.maps.' + project.property('buildMap')
@@ -150,8 +150,6 @@ task runFromClient(type: JavaExec, dependsOn: [':engine:build', ':internal-test-
             '-Dbc.server.save-file=' + 'matches/' + project.property('teamA') + '-vs-' + project.property('teamB') + '-on-' + project.property('maps') + '.bc22'
     ]
 }
-
-
 
 
 task run(dependsOn: ['headless']) {}
@@ -271,7 +269,6 @@ task releaseClientLinux32(type: Zip, dependsOn: ['prodClient']) {
 }
 
 
-
 task updateVersion() {
   // new File("frontend/public/version.txt").write(project.findProperty('release_version'))
 }
@@ -296,11 +293,10 @@ publishing {
   publications {
     server(MavenPublication) {
       groupId 'org.battlecode'
-      artifactId 'battlecode21'
+      artifactId 'battlecode22'
       version project.findProperty('release_version') ?: 'NONSENSE'
 
       artifact release_main
-    
 
       artifact release_docs {
         classifier 'javadoc'
@@ -312,15 +308,15 @@ publishing {
 
     clientWin(MavenPublication) {
       groupId 'org.battlecode'
-      artifactId 'battlecode21-client-win'
+      artifactId 'battlecode22-client-win'
       version project.findProperty('release_version') ?: 'NONSENSE'
 
       artifact releaseClientWin
     }
-    
+
     clientMac(MavenPublication) {
       groupId 'org.battlecode'
-      artifactId 'battlecode21-client-mac'
+      artifactId 'battlecode22-client-mac'
       version project.findProperty('release_version') ?: 'NONSENSE'
 
       artifact releaseClientMac
@@ -328,7 +324,7 @@ publishing {
 
     clientLinux(MavenPublication) {
       groupId 'org.battlecode'
-      artifactId 'battlecode21-client-linux'
+      artifactId 'battlecode22-client-linux'
       version project.findProperty('release_version') ?: 'NONSENSE'
 
       artifact releaseClientLinux
@@ -336,7 +332,7 @@ publishing {
 
     clientWin32(MavenPublication) {
       groupId 'org.battlecode'
-      artifactId 'battlecode21-client-win-32'
+      artifactId 'battlecode22-client-win-32'
       version project.findProperty('release_version') ?: 'NONSENSE'
 
       artifact releaseClientWin32
@@ -344,7 +340,7 @@ publishing {
 
     clientLinux32(MavenPublication) {
       groupId 'org.battlecode'
-      artifactId 'battlecode21-client-linux-32'
+      artifactId 'battlecode22-client-linux-32'
       version project.findProperty('release_version') ?: 'NONSENSE'
 
       artifact releaseClientLinux32
