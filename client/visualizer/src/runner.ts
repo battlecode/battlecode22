@@ -56,6 +56,18 @@ export default class Runner {
       this.listener = new WebSocketListener(this.conf.websocketURL,
         this.conf.pollEvery,
         this.conf);
+      
+      document.getElementById("indicator selected")!.addEventListener("click", this.toggleIndicatorDotsAndLines);
+      document.getElementById("indicator")!.addEventListener("click", this.toggleAllIndicatorDotsAndLines);
+      document.getElementById("interpolate")!.addEventListener("click", this.toggleInterpolation);
+      document.getElementById("action")!.addEventListener("click", this.toggleActionRadius);
+      document.getElementById("sensor")!.addEventListener("click", this.toggleVisionRadius);
+      document.getElementById("grid")!.addEventListener("click", this.toogleGridView);
+      document.getElementById("log header")!.addEventListener("click", this.toggleShortLogHeader);
+      document.getElementById("hide navigation")!.addEventListener("click", this.hideSidebar);
+      document.getElementById("process log")!.addEventListener("click", this.toggleProcessLogs);
+      document.getElementById("profile")!.addEventListener("click", this.toggleProfiler);
+      document.getElementById("rotate tall")!.addEventListener("click", this.toggleRotate);
     }
   }
 
@@ -471,26 +483,32 @@ export default class Runner {
           this.controls.reverseUPS();
           break;
         case 86: // "v" - Toggle Indicator Dots and Lines
-          this.conf.indicators = !this.conf.indicators;
+          this.toggleIndicatorDotsAndLines();
+          this.flipSwitch("indicator selected");
           break;
         case 67: // "c" - Toggle All Indicator Dots and Lines
-          this.conf.allIndicators = !this.conf.allIndicators;
+          this.toggleAllIndicatorDotsAndLines(); 
+          this.flipSwitch("indicator");
           break;
         case 66: // "b" - Toggle Interpolation
-          this.conf.interpolate = !this.conf.interpolate;
+          this.toggleInterpolation();
+          this.flipSwitch("interpolate");
           break;
         case 78: // "n" - Toggle action radius
-          this.conf.seeActionRadius = !this.conf.seeActionRadius;
+          this.toggleActionRadius();
+          this.flipSwitch("action");
           break;
         case 77: // "m" - Toggle vision radius
-          this.conf.seeVisionRadius = !this.conf.seeVisionRadius;
+          this.toggleVisionRadius();
+          this.flipSwitch("sensor");
           break;
         case 71: // "g" - Toogle grid view
-          this.conf.showGrid = !this.conf.showGrid;
+          this.toogleGridView();
+          this.flipSwitch("grid");
           break;
         case 72: // "h" - Toggle short log header
-          this.conf.shorterLogHeader = !this.conf.shorterLogHeader;
-          this.console.updateLogHeader();
+          this.toggleShortLogHeader();
+          this.flipSwitch("log header");
           break;
         case 65: // "a" - previous tournament Match
           this.previousTournamentState();
@@ -501,27 +519,81 @@ export default class Runner {
           this.processTournamentState();
           break;
         case 219: // '[' - hide sidebar
-          this.sidebar.hidePanel();
-          this.stats.hideTourneyUpload();
-          this.showTourneyUpload = !this.showTourneyUpload;
+          this.hideSidebar();
+          this.flipSwitch("hide navigation");
           break;
         case 76: // 'l' - Toggle process logs
-          this.conf.processLogs = !this.conf.processLogs;
-          this.console.setNotLoggingDiv();
+          this.toggleProcessLogs();
+          this.flipSwitch("process log");
           break;
         case 81: // 'q' - Toggle profiler
-          if (this.profiler) {
-            this.conf.doProfiling = !this.conf.doProfiling;
-            this.profiler.setNotProfilingDiv();
-          }
+          this.toggleProfiler();
+          this.flipSwitch("profile");
           break;
         case 90: // 'z' - Toggle rotate
-          this.conf.doRotate = !this.conf.doRotate;
+          this.toggleRotate();
+          this.flipSwitch("rotate tall");
       }
     }
 
   };
+
+  private toggleIndicatorDotsAndLines(){
+    this.conf.indicators = !this.conf.indicators;
+  }
+  
+
+  private toggleAllIndicatorDotsAndLines(){
+    this.conf.allIndicators = !this.conf.allIndicators;
+  }
+  private toggleInterpolation(){
+    this.conf.interpolate = !this.conf.interpolate;
+  }
+  private toggleActionRadius(){
+    this.conf.seeActionRadius = !this.conf.seeActionRadius;
+  }
+  private toggleVisionRadius(){
+    this.conf.seeVisionRadius = !this.conf.seeVisionRadius;
+  }
+  private toogleGridView(){
+    this.conf.showGrid = !this.conf.showGrid;
+  }
+  private toggleShortLogHeader(){
+    this.conf.shorterLogHeader = !this.conf.shorterLogHeader;
+    this.console.updateLogHeader();
+  }
+  private hideSidebar(){
+    this.sidebar.hidePanel();
+    this.stats.hideTourneyUpload();
+    this.showTourneyUpload = !this.showTourneyUpload;
+  }
+
+  private toggleProcessLogs(){
+    this.conf.processLogs = !this.conf.processLogs;
+    this.console.setNotLoggingDiv();
+          
+  }
+
+  private toggleProfiler(){
+    if (this.profiler) {
+      this.conf.doProfiling = !this.conf.doProfiling;
+      this.profiler.setNotProfilingDiv();
+    }
+  };
+
+  private toggleRotate(){
+    this.conf.doRotate = !this.conf.doRotate;
+  };
+
+  private flipSwitch(id : string){
+    var checkbox = document.getElementById("id");
+    var status = checkbox!.getAttribute("checked") != "checked";
+    console.log(status, checkbox!.getAttribute("checked"));
+    checkbox!.setAttribute("checked", status ? "checked": "unchecked");
+  };
 }
+
+
 
 export enum TournamentState {
   START_SPLASH,

@@ -29,7 +29,8 @@ export default class Sidebar {
   readonly matchrunner: MatchRunner;
   readonly matchqueue: MatchQueue;
   readonly profiler?: Profiler;
-  private readonly help: HTMLDivElement;
+  help: HTMLDivElement;
+  //private readonly help: HTMLDivElement;
 
   // Options
   private readonly conf: Config;
@@ -136,25 +137,198 @@ export default class Sidebar {
     <li>Ask on <a href="https://discordapp.com/channels/386965718572466197/401552673523892227">Discord</a> (attach a screenshot of console output using F12).</li>
     </ol>
     <b class="blue">Keyboard Shortcuts (Game)</b><br>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+</style>
+
     LEFT - Step Back One Turn<br>
     RIGHT - Step Forward One Turn<br>
     UP - Double Playback Speed<br>
     DOWN - Halve Playback Speed<br>
+
     P - Pause/Unpause<br>
     O - Stop (Go to Start)<br>
     E - Go to End<br>
-    V - Toggle Indicator Dots/Lines for Selected Robot<br>
-    C - Toggle All Indicator Dots/Lines<br>
-    G - Toggle Grid<br>
-    N - Toggle Action Radius<br>
-    M - Toggle Sensor Radius<br>
-    , - Toggle Detection Radius<br>
-    H - Toggle Shorter Log Headers<br>
-    B - Toggle Interpolation<br>
-    L - Toggle whether to process logs.<br>
-    Q - Toggle whether to profile matches.<br>
-    Z - Toggle whether to rotate tall maps.<br>
-    [ - Hide/unhide sidebar navigation.<br>
+
+    <br>
+
+    <label for="indicator selected">V - Toggle Indicator Dots/Lines for Selected Robot</label> 
+
+    <label class="switch">
+    <input type="checkbox" id="indicator selected">
+    <span class="slider round"></span>
+    </label>
+
+    <br>
+
+    <label for="indicator">C - Toggle All Indicator Dots/Lines</label> 
+
+    <label class="switch">
+    <input type="checkbox" id="indicator">
+    <span class="slider round"></span>
+    </label>
+
+    <br>
+
+    <label for="grid">G - Toggle Grid</label> 
+
+    <label class="switch">
+    <input type="checkbox" id="grid">
+    <span class="slider round"></span>
+    </label>
+
+
+    <br>
+
+    <label for="action">N - Toggle Action Radius</label> 
+
+    <label class="switch">
+    <input type="checkbox" id="action">
+    <span class="slider round"></span>
+    </label>
+
+    <br>
+
+    <label for="sensor">M - Toggle Sensor Radius</label> 
+
+    <label class="switch">
+    <input type="checkbox" id="sensor">
+    <span class="slider round"></span>
+    </label>
+    
+    <br>
+
+    <label for="detection">, - Toggle Detection Radius</label> 
+
+    <label class="switch">
+    <input type="checkbox" checked id="detection">
+    <span class="slider round"></span>
+    </label>
+    
+    <br>
+
+    <label for="log header">H - Toggle Shorter Log Headers</label> 
+
+    <label class="switch">
+    <input type="checkbox" id="log header">
+    <span class="slider round"></span>
+    </label>
+    
+
+    <br>
+
+    <label for="interpolate">B - Toggle Interpolation</label> 
+
+    <label class="switch">
+    <input type="checkbox" checked id="interpolate">
+    <span class="slider round"></span>
+    </label>
+
+
+    <br>
+
+    <label for="process log">L - Toggle whether to process logs</label> 
+
+    <label class="switch">
+    <input type="checkbox" checked id="process log">
+    <span class="slider round"></span>
+    </label>
+    
+    
+    <br>
+
+    <label for="profile">Q - Toggle whether to profile matches</label> 
+
+    <label class="switch", id="profile>
+    <input type="checkbox" checked">
+    <span class="slider round"></span>
+    </label>
+
+
+    <br>
+
+    <label for="rotate tall">Z - Toggle whether to rotate tall maps</label> 
+
+    <label class="switch">
+    <input type="checkbox" id="rotate tall">
+    <span class="slider round"></span>
+    </label>
+
+
+    <br>
+
+    <label for="hide navigation">[ - Hide/unhide sidebar navigation</label> 
+
+    <label class="switch">
+    <input type="checkbox" checked id="hide navigation">
+    <span class="slider round"></span>
+    </label>
+
+    <br>
+
+    
+    
+   
     <br>
     <b class="blue">Keyboard Shortcuts (Map Editor)</b><br
     <br>
@@ -221,7 +395,7 @@ export default class Sidebar {
     map.) <br>
     <br>
     Exported file name must be the same as the map name chosen above. For instance, <code>DefaultMap.bc22</code>.`;
-
+    
     if (this.conf.tournamentMode) {
       innerHTML += 
       `<br><br>
