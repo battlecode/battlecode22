@@ -146,7 +146,7 @@ export enum Mode {
  */
 export function defaults(supplied?: any): Config {
   let conf: Config = {
-    gameVersion: "2022.2.2.4", //TODO: Change this on each release!
+    gameVersion: "2.2.1", //TODO: Change this on each release!
     fullscreen: false,
     width: 600,
     height: 600,
